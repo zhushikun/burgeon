@@ -1,12 +1,13 @@
 package com.lwrs.app.db.entity;
 
+import com.lwrs.app.domain.BaseDto;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Date;
 
 @Getter@Setter
-public class User {
+public class User extends BaseDto{
     private Long id;
     private String alias;
     private String pwd;

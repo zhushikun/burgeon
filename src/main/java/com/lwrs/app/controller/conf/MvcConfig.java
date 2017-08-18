@@ -3,9 +3,13 @@ package com.lwrs.app.controller.conf;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.lwrs.app.interceptor.LoginInterceptor;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -13,6 +17,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import java.util.List;
 
 @Configuration
+@EnableWebMvc
+@ComponentScan
 public class MvcConfig extends WebMvcConfigurerAdapter {
 
     @Override
@@ -28,14 +34,19 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/**").addResourceLocations("/");
+        registry.addResourceHandler("/img/**").addResourceLocations("classpath:/static/img/");
+        registry.addResourceHandler("/css/**").addResourceLocations("classpath:/static/css/");
     }
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/").setViewName("forward:/index.html");
-        registry.addViewController("/login").setViewName("forward:/login.html");
-        registry.addViewController("/register").setViewName("forward:/register.html");
+        registry.addViewController("/login").setViewName("login");
+        registry.addViewController("/register").setViewName("register");
     }
 
+    @Override
+    public void addInterceptors(InterceptorRegistry registry){
+        registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/my/**");
+//            .excludePathPatterns("/**");
+    }
 }
