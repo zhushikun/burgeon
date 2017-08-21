@@ -1,6 +1,6 @@
 package com.lwrs.app.db.mapper;
 
-import com.lwrs.app.db.entity.User;
+import com.lwrs.app.db.entity.UserDB;
 import com.lwrs.app.db.sql.UserSql;
 import org.apache.ibatis.annotations.InsertProvider;
 import org.apache.ibatis.annotations.Param;
@@ -14,7 +14,7 @@ import java.util.List;
 public interface UserMapper {
 
     @InsertProvider(type = UserSql.class, method = "insert")
-    int insert(@Param("pojo") User pojo);
+    int insert(@Param("pojo") UserDB pojo);
 
 //    int insertList(@Param("pojo") List<UserAccount> pojo);
 
@@ -31,13 +31,13 @@ public interface UserMapper {
         @Result(column="update_at",     property="updateAt"),
     })
     @SelectProvider(type = UserSql.class, method = "selectById")
-    List<User> selectById(@Param("pojo") User pojo);
+    UserDB selectById(@Param("id") Integer userId);
 
 
 
 
 
     @UpdateProvider(type = UserSql.class, method = "updateById")
-    int updateById(@Param("pojo") User pojo);
+    int updateById(@Param("pojo") UserDB pojo);
 
 }

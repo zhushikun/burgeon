@@ -32,7 +32,9 @@ dependencies {
 	compile("org.springframework.boot:spring-boot-starter-freemarker")
 //	compile("org.springframework.boot:spring-boot-starter-thymeleaf")
 
-	compile 'com.dianrong.common:logging:2.0.0-RELEASE'
+	compile("org.springframework.boot:spring-boot-starter-log4j")
+
+	compile 'org.apache.commons:commons-lang3:3.5'
 	compile 'com.google.code.gson:gson:2.8.0'
 
 	compile 'com.alibaba:druid:1.0.12'

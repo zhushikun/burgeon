@@ -62,7 +62,7 @@ public class UserSql {
 
     public String selectById() {
         return "SELECT " + COLUMNS + " from" + TABLE_NAME
-//            + " WHERE id = #{pojo.id}"
+            + " WHERE id = #{id}"
             ;
     }
 
