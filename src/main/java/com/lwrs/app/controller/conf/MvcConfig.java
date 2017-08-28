@@ -43,8 +43,9 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/img/**").addResourceLocations("classpath:/static/img/");
-        registry.addResourceHandler("/css/**").addResourceLocations("classpath:/static/css/");
+        registry.addResourceHandler("/static/img/**").addResourceLocations("classpath:/static/img/");
+        registry.addResourceHandler("/static/css/**").addResourceLocations("classpath:/static/css/");
+        registry.addResourceHandler("/static/js/**").addResourceLocations("classpath:/static/js/");
         String pictureDir = "file:" + fileService.getPictureDir() + "/";
         registry.addResourceHandler("/picture/**").addResourceLocations(pictureDir);
     }

@@ -15,29 +15,18 @@ public class RespBaseDto extends BaseDto{
         msg = RespCode.OK.getMsg();
     }
 
-
-    public static RespBaseDtoBuilder builder() {
-        return new RespBaseDtoBuilder();
+    public RespBaseDto(RespCode respCode){
+        code = respCode.getCode();
+        msg = respCode.getMsg();
     }
 
-    public static final class RespBaseDtoBuilder {
-        private String code;
-        private String msg;
+    public static RespBaseDto of(RespCode respCode){
+        return new RespBaseDto(respCode);
+    }
 
-        private RespBaseDtoBuilder() {
-        }
 
-        public RespBaseDtoBuilder respCode(RespCode respCode) {
-            code = respCode.getCode();
-            msg = respCode.getMsg();
-            return this;
-        }
-
-        public RespBaseDto build() {
-            RespBaseDto respBaseDto = new RespBaseDto();
-            respBaseDto.msg = this.msg;
-            respBaseDto.code = this.code;
-            return respBaseDto;
-        }
+    public void setRespCode(RespCode respCode){
+        code = respCode.getCode();
+        msg = respCode.getMsg();
     }
 }

@@ -1,10 +1,10 @@
 package com.lwrs.app.domain;
 
-import com.google.gson.GsonBuilder;
+import com.lwrs.app.utils.GsonHelper;
 
 public class BaseDto {
 
     public String toString(){
-           return new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").setPrettyPrinting().create().toJson(this);
+           return GsonHelper.getGson().toJson(this);
     }
 }

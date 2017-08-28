@@ -22,17 +22,12 @@ import java.util.Map;
 @Controller
 public class HelloController {
 
-
     @Autowired
     private UserServiceImpl userService;
 
     @GetMapping(value = {"/","/home"})
     public String index(Model model){
-//        List<User> userList = userService.getAllUser();
-//        model.addAttribute("userList", userList);
-        Integer userId = UserLoginContext.getUserId();
-        model.addAttribute("name", (null == userId)? "" : userId);
-        return "home";
+        return "index";
     }
 
 

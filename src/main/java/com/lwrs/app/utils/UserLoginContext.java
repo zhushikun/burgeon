@@ -13,6 +13,7 @@ public class UserLoginContext {
         userSession.set(session);
     }
 
+    //todo maskuid
     public static Integer getUserId(){
         HttpSession session = userSession.get();
         return (null == session) ? null : (Integer) session.getAttribute(Constants.USER_KEY);

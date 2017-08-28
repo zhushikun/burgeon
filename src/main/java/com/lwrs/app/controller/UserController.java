@@ -4,6 +4,7 @@ import com.lwrs.app.domain.dto.RespBaseDto;
 import com.lwrs.app.enums.RespCode;
 import com.lwrs.app.service.impl.UserServiceImpl;
 import com.lwrs.app.utils.UserLoginContext;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,12 +30,26 @@ public class UserController {
     @ResponseBody
     public String uploadAvatar(@RequestParam("file") MultipartFile file){
         if (file.isEmpty()) {
-            return RespBaseDto.builder().respCode(RespCode.INVALID_PARAM).build().toString();
+            return RespBaseDto.of(RespCode.INVALID_PARAM).toString();
         }
         Integer userId = UserLoginContext.getUserId();
         Validate.notNull(userId, "uploadAvatar, user not login");
         RespBaseDto resp = userService.uploadAvatar(file, userId);
         return resp.toString();
+    }
+
+    /**
+     * 修改手机号，alias
+     * @return
+     */
+    @PostMapping("basic/modify")
+    @ResponseBody
+    public String modifyBasicInfo(@RequestParam(value = "phone", required = false) String phone,
+        @RequestParam(value = "alias", required = false) String alias){
+        if(StringUtils.isEmpty(phone) && StringUtils.isEmpty(alias)){
+            return RespBaseDto.of(RespCode.INVALID_PARAM).toString();
+        }
+        return userService.modifyBasicInfo(phone, alias).toString();
     }
 
 }
