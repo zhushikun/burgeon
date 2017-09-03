@@ -9,7 +9,7 @@
 <h4>
     aaaa
 </h4>
-<h3> 登录用户： + ${name}"</h3>
+<h3> 登录用户： + ${name!}"</h3>
 <#if userList??>
     <#list userList as user>
         <li>name: ${user.name!}</li>

@@ -8,6 +8,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,13 +27,18 @@ public class UserController {
     @Autowired
     private UserServiceImpl userService;
 
+    /**
+     * 修改头像
+     * @param file
+     * @return
+     */
     @PostMapping("/uploadAvatar")
     @ResponseBody
     public String uploadAvatar(@RequestParam("file") MultipartFile file){
         if (file.isEmpty()) {
             return RespBaseDto.of(RespCode.INVALID_PARAM).toString();
         }
-        Integer userId = UserLoginContext.getUserId();
+        Long userId = UserLoginContext.getUserId();
         Validate.notNull(userId, "uploadAvatar, user not login");
         RespBaseDto resp = userService.uploadAvatar(file, userId);
         return resp.toString();
@@ -51,5 +57,10 @@ public class UserController {
         }
         return userService.modifyBasicInfo(phone, alias).toString();
     }
+
+
+
+
+    @PostMapping("")
 
 }

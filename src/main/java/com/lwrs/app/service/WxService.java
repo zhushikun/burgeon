@@ -34,6 +34,10 @@ public class WxService {
     @Autowired
     private RequestHandler requestHandler;
 
+    /**
+     * 公众号 交互access_token
+     * @return
+     */
     public WxAccTokenResp getAccessToken(){
         if(null == appTokenCache && refreshAppToken()){
             return null;
@@ -46,6 +50,10 @@ public class WxService {
         return tokenResp;
     }
 
+    /**
+     * 公众号 交互access_token
+     * @return
+     */
     public boolean refreshAppToken(){
         String respStr = requestHandler.get(String.format(APP_TOKEN_REFRESH, appId, secret));
         log.info("APP_TOKEN_REFRESH, resp={}", respStr);

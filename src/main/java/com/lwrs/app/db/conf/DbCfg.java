@@ -46,6 +46,10 @@ public class DbCfg {
         SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();
         factoryBean.setDataSource(dataSource);
         //factoryBean.setPlugins(new Interceptor[] {new SqlTraceInterceptor()});
+        org.apache.ibatis.session.Configuration configuration = new org.apache.ibatis.session.Configuration();
+        configuration.setCacheEnabled(false);//全局禁用缓存
+        configuration.setMapUnderscoreToCamelCase(true);
+        factoryBean.setConfiguration(configuration);
         return factoryBean;
     }
 

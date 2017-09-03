@@ -25,9 +25,15 @@ public class HelloController {
     @Autowired
     private UserServiceImpl userService;
 
-    @GetMapping(value = {"/","/home"})
+    @GetMapping(value = {"/","/index"})
     public String index(Model model){
         return "index";
+    }
+
+
+    @GetMapping(value = {"/","/home"})
+    public String home(Model model){
+        return "home";
     }
 
 

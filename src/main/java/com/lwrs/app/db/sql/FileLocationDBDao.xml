@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lwrs.app.db.entity.FileLocationDBDao">
+
+<!--auto generated Code-->
+    <resultMap id="AllColumnMap" type="com.lwrs.app.db.entity.FileLocationDB">
+        <result column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="type" property="type"/>
+        <result column="location" property="location"/>
+        <result column="create_at" property="createAt"/>
+        <result column="update_at" property="updateAt"/>
+    </resultMap>
+
+<!--auto generated Code-->
+    <sql id="all_column">
+        id,
+        user_id,
+        type,
+        location,
+        create_at,
+        update_at
+    </sql>
+
+<!--auto generated Code-->
+    <insert id="insert">
+        INSERT INTO file_location_d_b
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pojo.id != null"> id, </if>
+            <if test="pojo.userId != null"> user_id, </if>
+            <if test="pojo.type != null"> type, </if>
+            <if test="pojo.location != null"> location, </if>
+            <if test="pojo.createAt != null"> create_at, </if>
+            <if test="pojo.updateAt != null"> update_at, </if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pojo.id != null"> #{pojo.id}, </if>
+            <if test="pojo.userId != null"> #{pojo.userId}, </if>
+            <if test="pojo.type != null"> #{pojo.type}, </if>
+            <if test="pojo.location != null"> #{pojo.location}, </if>
+            <if test="pojo.createAt != null"> #{pojo.createAt}, </if>
+            <if test="pojo.updateAt != null"> #{pojo.updateAt}, </if>
+        </trim>
+    </insert>
+
+<!--auto generated Code-->
+    <insert id="insertList">
+        INSERT INTO file_location_d_b(
+        <include refid="all_column"/>
+        )VALUES
+        <foreach collection="pojos" item="pojo" index="index" separator=",">
+            (
+            #{pojo.id},
+            #{pojo.userId},
+            #{pojo.type},
+            #{pojo.location},
+            #{pojo.createAt},
+            #{pojo.updateAt}
+            )
+        </foreach>
+    </insert>
+
+<!--auto generated Code-->
+    <update id="update">
+        UPDATE file_location_d_b
+        <set>
+            <if test="pojo.id != null"> id = #{pojo.id}, </if>
+            <if test="pojo.userId != null"> user_id = #{pojo.userId}, </if>
+            <if test="pojo.type != null"> type = #{pojo.type}, </if>
+            <if test="pojo.location != null"> location = #{pojo.location}, </if>
+            <if test="pojo.createAt != null"> create_at = #{pojo.createAt}, </if>
+            <if test="pojo.updateAt != null"> update_at = #{pojo.updateAt} </if>
+        </set>
+         WHERE id = #{pojo.id}
+    </update>
+
+<!--auto generated Code-->
+    <select id="select" resultMap="AllColumnMap">
+        SELECT <include refid="all_column"/>
+        FROM file_location_d_b
+        <where>
+            <if test="pojo.id != null"> AND id = #{pojo.id} </if>
+            <if test="pojo.userId != null"> AND user_id = #{pojo.userId} </if>
+            <if test="pojo.type != null"> AND type = #{pojo.type} </if>
+            <if test="pojo.location != null"> AND location = #{pojo.location} </if>
+            <if test="pojo.createAt != null"> AND create_at = #{pojo.createAt} </if>
+            <if test="pojo.updateAt != null"> AND update_at = #{pojo.updateAt} </if>
+        </where>
+    </select>
+
+<!--auto generated Code-->
+    <delete id="delete">
+        DELETE FROM file_location_d_b where id = #{pojo.id}
+    </delete>
+</mapper>

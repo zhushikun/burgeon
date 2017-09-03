@@ -12,6 +12,7 @@ public class JobController {
     private WxService wxService;
 
     /**
+     * 公众号 交互access_token
      * appToken 2个小时失效； 提前10分钟 刷新一下
      * @return
      */

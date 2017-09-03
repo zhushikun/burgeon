@@ -14,8 +14,8 @@ public class UserLoginContext {
     }
 
     //todo maskuid
-    public static Integer getUserId(){
+    public static Long getUserId(){
         HttpSession session = userSession.get();
-        return (null == session) ? null : (Integer) session.getAttribute(Constants.USER_KEY);
+        return (null == session) ? null : (Long) session.getAttribute(Constants.USER_KEY);
     }
 }
