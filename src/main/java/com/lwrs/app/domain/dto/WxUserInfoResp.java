@@ -5,7 +5,14 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter@Setter
-public class UserInfoReq extends BaseDto {
+public class WxUserInfoResp extends BaseDto {
+    /**
+     * 失败时候返回
+     */
+    private String errcode;
+    private String errmsg;
+
+
     /**
      * 用户的唯一标识
      */

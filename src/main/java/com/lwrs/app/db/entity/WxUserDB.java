@@ -1,15 +1,19 @@
 package com.lwrs.app.db.entity;
 
 import com.lwrs.app.domain.BaseDto;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Date;
+
 @Getter
 @Setter
 @Builder
 @NoArgsConstructor
+@AllArgsConstructor
 public class WxUserDB extends BaseDto{
     private Long id;
 
@@ -52,4 +56,7 @@ public class WxUserDB extends BaseDto{
      *只有在用户将公众号绑定到微信开放平台帐号后，才会出现该字段
      */
     private String unionId;
+
+    private Date createAt;
+    private Date updateAt;
 }

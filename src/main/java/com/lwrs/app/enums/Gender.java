@@ -5,20 +5,20 @@ import lombok.Getter;
 
 @AllArgsConstructor
 public enum Gender {
-    M("1"),
-    F("2"),
-    X("0");
+    MALE("1"),
+    FEMALE("2"),
+    UNKNOWN("0");
 
     @Getter
-    private String wxGender;
+    private String code;
 
     public static Gender getByWxGender(String wxGender){
         for(Gender gender : Gender.values()){
-            if(gender.getWxGender().equals(wxGender)){
+            if(gender.getCode().equals(wxGender)){
                 return gender;
             }
         }
-        return X;
+        return UNKNOWN;
     }
 
 

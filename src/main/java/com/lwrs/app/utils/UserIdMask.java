@@ -5,9 +5,9 @@ import org.apache.commons.lang3.StringUtils;
 import java.util.Random;
 
 public class UserIdMask {
-    private static final int MULTIPLIER = 13;
+    private static final int MULTIPLIER = 131;
 
-    public static String maskUserId(Integer userId){
+    public static String maskUserId(Long userId){
         if(null == userId || userId < 1){
             return "";
         }
@@ -18,6 +18,7 @@ public class UserIdMask {
         Random random = new Random();
         int swapLen = random.nextInt(temp.length());
         swapLen = (0 == swapLen) ? 1 : swapLen;
+        swapLen = (swapLen > 9) ? 9 : swapLen;
 
         StringBuilder sb = new StringBuilder();
         sb.append(swapLen)
@@ -26,8 +27,8 @@ public class UserIdMask {
         return sb.toString();
     }
 
-    public static Integer unmask(String str){
-        if(!StringUtils.isNumeric(str)){
+    public static Long unmask(String str){
+        if(StringUtils.isEmpty(str) || !StringUtils.isNumeric(str) || str.startsWith("0")){
             return null;
         }
         int swapLen = Integer.valueOf(str.substring(0, 1));
@@ -39,11 +40,12 @@ public class UserIdMask {
         sb.append(str.substring(str.length() - swapLen))
             .append(str.substring(1, str.length() - swapLen));
 
-        int temp = Integer.valueOf(sb.toString());
-        if(0 != temp % MULTIPLIER){
+        Long temp = Long.valueOf(sb.toString());
+        if(null== temp || 0 != temp % MULTIPLIER){
             return null;
         }
         return temp/MULTIPLIER;
     }
+
 
 }

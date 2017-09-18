@@ -1,21 +1,14 @@
 package com.lwrs.app.utils;
 
-import com.lwrs.app.constant.Constants;
-import com.lwrs.app.db.entity.UserDB;
-
-import javax.servlet.http.HttpSession;
-
 public class UserLoginContext {
-    private static ThreadLocal<HttpSession> userSession= new ThreadLocal<>();
+    private static ThreadLocal<Long> userIdLocal= new ThreadLocal<>();
 
 
-    public static void recordSession(HttpSession session){
-        userSession.set(session);
+    public static void setUserId(Long userId){
+        userIdLocal.set(userId);
     }
 
-    //todo maskuid
     public static Long getUserId(){
-        HttpSession session = userSession.get();
-        return (null == session) ? null : (Long) session.getAttribute(Constants.USER_KEY);
+        return userIdLocal.get();
     }
 }

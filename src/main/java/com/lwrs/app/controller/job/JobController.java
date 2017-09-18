@@ -18,7 +18,7 @@ public class JobController {
      */
     @Scheduled(initialDelay = 0, fixedRate = 1000 * 6600)
     public void refreshAccToken(){
-        wxService.refreshAppToken();
+        wxService.refreshGzhAppToken();
     }
 
 

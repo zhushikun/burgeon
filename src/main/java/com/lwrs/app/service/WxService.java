@@ -1,7 +1,10 @@
 package com.lwrs.app.service;
 
+import com.lwrs.app.constant.WxConstant;
 import com.lwrs.app.domain.bo.AppToken;
-import com.lwrs.app.domain.dto.WxAccTokenResp;
+import com.lwrs.app.domain.dto.WxGzhAccTokenResp;
+import com.lwrs.app.domain.dto.WxOauthAccTokenResp;
+import com.lwrs.app.domain.dto.WxUserInfoResp;
 import com.lwrs.app.enums.RespCode;
 import com.lwrs.app.service.remote.RequestHandler;
 import com.lwrs.app.utils.GsonHelper;
@@ -13,13 +16,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.Calendar;
-import java.util.Map;
 
 @Slf4j
 @Service
 public class WxService {
 
-//    private static String ACCESS_TOKEN_NAME = "access_token";
 
     @Setter
     private static AppToken appTokenCache;
@@ -35,14 +36,59 @@ public class WxService {
     private RequestHandler requestHandler;
 
     /**
+     * 根据code 获取 oauth的 access_token
+     * @param code
+     * @return
+     */
+    public WxOauthAccTokenResp getOAuthAccessToken(String code){
+        String url = String.format(WxConstant.OAUTH_ACCESS_TOKEN_URL, code);
+        String strResp = requestHandler.get(url);
+        WxOauthAccTokenResp resp = GsonHelper.getGson().fromJson(strResp, WxOauthAccTokenResp.class);
+        if(StringUtils.isEmpty(resp.getAccess_token())){
+            log.error("request OAUTH_ACCESS_TOKEN_URL failed, code={}, resp={}", code, strResp);
+            return null;
+        }
+        return resp;
+    }
+
+    /**
+     * 由于access_token拥有较短的有效期，当access_token超时后，可以使用refresh_token进行刷新
+     * refresh_token有效期为30天
+     * @param refreshToken
+     * @return
+     */
+    public WxOauthAccTokenResp refreshOAuthAccessToken(String refreshToken){
+        String url = String.format(WxConstant.OAUTH_REFRESH_URL, refreshToken);
+        String strResp = requestHandler.get(url);
+        WxOauthAccTokenResp resp = GsonHelper.getGson().fromJson(strResp, WxOauthAccTokenResp.class);
+        if(StringUtils.isEmpty(resp.getAccess_token())){
+            log.error("request OAUTH_REFRESH_URL failed, refreshToken={}, resp={}", refreshToken, strResp);
+            return null;
+        }
+        return resp;
+    }
+
+
+    public WxUserInfoResp getWxUserInfo(String accessToken, String openId){
+        String url = String.format(WxConstant.USER_INFO_URL, accessToken, openId);
+        String strResp = requestHandler.get(url);
+        WxUserInfoResp resp = GsonHelper.getGson().fromJson(strResp, WxUserInfoResp.class);
+        if(StringUtils.isEmpty(resp.getOpenid())){
+            log.error("request OAUTH_REFRESH_URL failed, accessToken={} openId={}, resp={}", accessToken, openId, strResp);
+            return null;
+        }
+        return resp;
+    }
+
+    /**
      * 公众号 交互access_token
      * @return
      */
-    public WxAccTokenResp getAccessToken(){
-        if(null == appTokenCache && refreshAppToken()){
+    public WxGzhAccTokenResp getGzhAccessToken(){
+        if(null == appTokenCache && refreshGzhAppToken()){
             return null;
         }
-        WxAccTokenResp tokenResp = WxAccTokenResp.builder()
+        WxGzhAccTokenResp tokenResp = WxGzhAccTokenResp.builder()
             .access_token(appTokenCache.getAccess_token())
             .expireTime(appTokenCache.getExpireTime())
             .build();
@@ -54,7 +100,7 @@ public class WxService {
      * 公众号 交互access_token
      * @return
      */
-    public boolean refreshAppToken(){
+    public boolean refreshGzhAppToken(){
         String respStr = requestHandler.get(String.format(APP_TOKEN_REFRESH, appId, secret));
         log.info("APP_TOKEN_REFRESH, resp={}", respStr);
         AppToken appToken = GsonHelper.getGson().fromJson(respStr, AppToken.class);
