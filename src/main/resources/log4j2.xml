@@ -43,9 +43,6 @@
             <AppenderRef ref="info"/>
         </Root>
 
-        <!--<logger name="com.dianrong.uniontransns" additivity="false" level="info">-->
-            <!--<appender-ref ref="info"/>-->
-        <!--</logger>-->
 
         <!-- event log -->
         <Logger name="org.hibernate" level="ERROR"/>
