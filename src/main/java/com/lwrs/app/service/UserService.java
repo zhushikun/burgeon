@@ -7,7 +7,7 @@ import com.lwrs.app.db.mapper.FileLocationMapper;
 import com.lwrs.app.db.mapper.UserMapper;
 import com.lwrs.app.db.mapper.WxOauthMapper;
 import com.lwrs.app.db.mapper.WxUserMapper;
-import com.lwrs.app.domain.dto.RespBaseDto;
+import com.lwrs.app.domain.dto.BaseResp;
 import com.lwrs.app.domain.dto.WxUserInfoResp;
 import com.lwrs.app.domain.dto.WxOauthAccTokenResp;
 import com.lwrs.app.enums.FileType;
@@ -53,12 +53,12 @@ public class UserService {
      * @param userId
      * @return
      */
-    public RespBaseDto uploadAvatar(MultipartFile file, Long userId){
+    public BaseResp uploadAvatar(MultipartFile file, Long userId){
         try {
             UserDB userDB = userMapper.selectById(userId);
             if(null == userDB){
                 log.error(String.format("uploadAvatar, get empty DB by userId=%s", userId));
-                return RespBaseDto.of(RespCode.DB_NOT_EXIST);
+                return BaseResp.of(RespCode.NOT_EXIST);
             }
 
             Long avatarId = fileService.uploadFile(file, userId, FileType.AVATAR);
@@ -74,11 +74,11 @@ public class UserService {
             Validate.isTrue(updateNum > 0,
                 String.format("uploadAvatar update userDB failed, userId=%s, avatarId=%s", userId, avatarId));
 
-            return RespBaseDto.of(RespCode.OK);
+            return BaseResp.of(RespCode.OK);
         }catch (Exception e){
             log.error("Exception in uploadAvatar", e);
         }
-        return RespBaseDto.of(RespCode.EXCEPTION);
+        return BaseResp.of(RespCode.EXCEPTION);
     }
 
 
@@ -88,7 +88,7 @@ public class UserService {
      * @param alias
      * @return
      */
-    public RespBaseDto modifyBasicInfo(String phone, String alias){
+    public BaseResp modifyBasicInfo(String phone, String alias){
         Long userId = UserLoginContext.getUserId();
         log.info("modifyBasicInfo userId={}, phone={}, alias={}",
             userId, phone, alias);
@@ -99,10 +99,10 @@ public class UserService {
             .build();
         int updateNum = userMapper.updateById(userDBUpdate);
         if(updateNum > 0){
-            return RespBaseDto.of(RespCode.OK);
+            return BaseResp.of(RespCode.OK);
         }
         log.error("modifyBasicInfo update failed, userId={}", userId);
-        return RespBaseDto.of(RespCode.DB_NOT_EXIST);
+        return BaseResp.of(RespCode.NOT_EXIST);
     }
 
 
@@ -168,7 +168,7 @@ public class UserService {
         UserDB userDB = UserDB.builder()
             .id(userId)
             .alias(wxUserInfoResp.getNickname())
-            .gender(Gender.getByWxGender(wxUserInfoResp.getSex()).getCode())
+            .gender(Gender.getByCode(wxUserInfoResp.getSex()).getCode())
             .address(String.format("%s%s", wxUserInfoResp.getProvince(), wxUserInfoResp.getCity()))
             .useWxAvatar(1)
             .build();

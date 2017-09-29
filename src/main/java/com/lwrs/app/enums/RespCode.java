@@ -5,9 +5,9 @@ import lombok.Getter;
 public enum RespCode {
     OK("0000", "ok"),
 
-    INVALID_PARAM("1001", "invalid param"),
-    EXCEPTION("1002", "exception happen"),
-    DB_NOT_EXIST("1003", "not exist"),
+    INVALID_PARAM("1001", "请求不合法"),
+    EXCEPTION("1002", "处理异常"),
+    NOT_EXIST("1003", "请求记录不存在"),
 
     ;
 

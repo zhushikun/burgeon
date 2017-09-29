@@ -7,7 +7,7 @@ public class GsonHelper {
 
     public static Gson getGson(){
         return new GsonBuilder()
-            .disableHtmlEscaping()
+//            .disableHtmlEscaping()
             .setDateFormat("yyyy-MM-dd HH:mm:ss")
             .setPrettyPrinting()
             .create();

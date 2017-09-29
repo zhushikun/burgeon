@@ -63,17 +63,36 @@ CREATE TABLE file_location(
 )AUTO_INCREMENT=1 ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT '文件位置';
 
 
-CREATE TABLE invite (
+CREATE TABLE event_book (
     id 			    INT UNSIGNED	NOT NULL 		AUTO_INCREMENT	  comment '主键' ,
-    master_id 	INT UNSIGNED	NOT NULL 					            comment '邀请人',
-    guest_id  	INT UNSIGNED 	NOT NULL 					            comment '被邀请人',
-    type	    	varchar(32)   NOT NULL 	DEFAULT 'NORMAL'	  comment  '邀请类型',
+    shop_id 	  INT UNSIGNED	NOT NULL 					            comment '商户Id',
+    user_id  	  INT UNSIGNED 	NOT NULL 					            comment '用户ID',
+    user_name   VARCHAR(32)   NOT NULL                      comment '用户名',
+    gender      VARCHAR(2)    NOT NULL   DEFAULT 0          COMMENT '性别，1男性，2女性',
+    phone       VARCHAR(16)   NOT NULL                      comment '手机号',
+    birth_date  DATE          NOT NULL                      comment '用户出生日期',
+    book_type   VARCHAR(32)   NOT NULL                      comment '选择类型',
+    book_date   DATE          NOT NULL                      comment '用户预定日期',
     create_at 	datetime 	    NOT NULL 	DEFAULT CURRENT_TIMESTAMP,
     update_at 	timestamp 	  NOT NULL 	DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP ,
-    PRIMARY KEY PK_INVITE (id),
-    INDEX UIDX_INVITE_MI (master_id),
-    INDEX UIDX_INVITE_GI (guest_id)
-)AUTO_INCREMENT = 1,ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='邀请表';
+    PRIMARY KEY PK_EVENTBK (id),
+    INDEX UIDX_EVENTBK_UI (user_id),
+    INDEX UIDX_EVENTBK_SI (shop_id)
+)AUTO_INCREMENT = 1,ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='活动预订';
+
+CREATE TABLE shop (
+    id 			    INT UNSIGNED	NOT NULL 		AUTO_INCREMENT	  comment 'shopId' ,
+    shop_name 	varchar(32) 	NOT NULL 					            comment '商户名',
+    group_id  	INT UNSIGNED 	NOT NULL 	DEFAULT 0           comment 'shopGroupId',
+    address	    varchar(128)  NOT NULL 	                	  comment  '地址',
+    phone	      varchar(128)  NOT NULL 	                	  comment  '电话',
+    create_at 	datetime 	    NOT NULL 	DEFAULT CURRENT_TIMESTAMP,
+    update_at 	timestamp 	  NOT NULL 	DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP ,
+    PRIMARY KEY PK_SHOP (id),
+    INDEX UIDX_SHOP_NAME (shop_name),
+    INDEX UIDX_SHOP_GI (group_id)
+)AUTO_INCREMENT = 101,ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='商户表';
+
 
 
 

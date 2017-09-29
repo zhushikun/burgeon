@@ -6,10 +6,16 @@ PIC_DIR:
   /home/drjr/www/pic
 
 #wx config
+#//jingjing's
+#WX_APP_ID:
+#  wxceac24c676993f3e
+#WX_SECRET:
+#  1b73554bd466efe7035af7a5f4e057cd
+
 WX_APP_ID:
-  wxceac24c676993f3e
+  wx24daf53f0462c7eb
 WX_SECRET:
-  1b73554bd466efe7035af7a5f4e057cd
+  c1458a3a5f97790d5c088b39aae1ffe5
 
 
 

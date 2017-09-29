@@ -1,21 +1,16 @@
 package com.lwrs.app.controller;
 
-import com.lwrs.app.constant.Constants;
-import com.lwrs.app.db.entity.UserDB;
 import com.lwrs.app.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import javax.servlet.http.HttpSession;
 
 /**
  * Created by drjr on 17-7-4.
  */
 @Controller
-public class HelloController {
+public class HomeController {
 
     @Autowired
     private UserService userService;
@@ -34,9 +29,9 @@ public class HelloController {
 
 
 
-    @RequestMapping("/my")
-    public String my(Model map, HttpSession session){
-        return "my/my";
-    }
+//    @RequestMapping("/my")
+//    public String my(Model map, HttpSession session){
+//        return "my/my";
+//    }
 
 }

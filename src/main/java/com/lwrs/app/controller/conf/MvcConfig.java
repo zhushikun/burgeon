@@ -54,10 +54,7 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry){
-        registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/**");
+//        registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/**").excludePathPatterns("/wx/oauth");
 
-//        registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/user/**");
-//        registry.addInterceptor(new SessionInterceptor()).addPathPatterns("/**");
-//            .excludePathPatterns("/**");
     }
 }

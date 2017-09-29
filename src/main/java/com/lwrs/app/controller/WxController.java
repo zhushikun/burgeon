@@ -33,7 +33,7 @@ public class WxController {
      * @return
      * @throws IOException
      */
-    @GetMapping("oauth")
+    @GetMapping("/ajax/oauth")
     @ResponseBody
     public String oauthLogin(@RequestParam("code") String code,
         @RequestParam(value = "state", required = false) String state, HttpServletResponse response) throws IOException {
