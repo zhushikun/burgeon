@@ -18,10 +18,13 @@ public interface EventBookMapper {
     @Options(useGeneratedKeys = true)
     Long insert(@Param("pojo") EventBookDB pojo);
 
-    @Select(EventBookSql.SELECT_BY_ID)
-    List<EventBookDB> select(@Param("id") String id);
-
     @Update(EventBookSql.UPDATE_BY_ID)
     int update(@Param("pojo") EventBookDB pojo);
+
+    @Select(EventBookSql.SELECT_BY_ID)
+    EventBookDB selectById(@Param("id") Long id);
+
+    @Select(EventBookSql.SELECT_BY_SHOPID)
+    List<EventBookDB> selectByShopId(@Param("shopId") Long shopId);
 
 }

@@ -24,6 +24,10 @@ public class DateUtils {
         return new SimpleDateFormat(pattern).parse(strDate);
     }
 
+    public static String format(String pattern, Date strDate) {
+        return new SimpleDateFormat(pattern).format(strDate);
+    }
+
 
     public static String formatIso8601Date(Instant instant) {
         return getIso8601DateFormat().format(instant);

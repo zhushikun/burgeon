@@ -1,7 +1,7 @@
 package com.lwrs.app.service.job;
 
 import com.lwrs.app.service.WxService;
-import com.lwrs.app.utils.UnionTransThreadFactory;
+import com.lwrs.app.utils.MyThreadFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -23,7 +23,7 @@ public class JobTrigger {
 
 
     private void run(String methodName ,Runnable runnable){
-        UnionTransThreadFactory.of("JobTrigger#" + methodName , null)
+        MyThreadFactory.of("JobTrigger#" + methodName , null)
             .newThread(runnable)
             .start();
     }

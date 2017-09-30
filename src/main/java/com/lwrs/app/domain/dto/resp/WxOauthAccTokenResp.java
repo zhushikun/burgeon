@@ -1,4 +1,4 @@
-package com.lwrs.app.domain.dto;
+package com.lwrs.app.domain.dto.resp;
 
 import com.lwrs.app.domain.BaseDto;
 import lombok.Getter;

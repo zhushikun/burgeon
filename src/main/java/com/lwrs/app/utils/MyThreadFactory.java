@@ -6,7 +6,7 @@ import org.apache.commons.lang3.StringUtils;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class UnionTransThreadFactory implements ThreadFactory {
+public class MyThreadFactory implements ThreadFactory {
     private static final AtomicInteger poolNumber = new AtomicInteger(1);
     private final ThreadGroup group;
     private final AtomicInteger threadNumber = new AtomicInteger(1);
@@ -14,11 +14,11 @@ public class UnionTransThreadFactory implements ThreadFactory {
 
     private Integer priority;
 
-    public static UnionTransThreadFactory of(String name, Integer priority){
-        return new UnionTransThreadFactory(name, priority);
+    public static MyThreadFactory of(String name, Integer priority){
+        return new MyThreadFactory(name, priority);
     }
 
-    private UnionTransThreadFactory(String name, Integer priority) {
+    private MyThreadFactory(String name, Integer priority) {
         SecurityManager s = System.getSecurityManager();
         group = (s != null) ? s.getThreadGroup() :
             Thread.currentThread().getThreadGroup();

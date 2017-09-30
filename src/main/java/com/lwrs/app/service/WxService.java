@@ -2,9 +2,9 @@ package com.lwrs.app.service;
 
 import com.lwrs.app.constant.WxConstant;
 import com.lwrs.app.domain.bo.AppToken;
-import com.lwrs.app.domain.dto.WxGzhAccTokenResp;
-import com.lwrs.app.domain.dto.WxOauthAccTokenResp;
-import com.lwrs.app.domain.dto.WxUserInfoResp;
+import com.lwrs.app.domain.dto.resp.WxGzhAccTokenResp;
+import com.lwrs.app.domain.dto.resp.WxOauthAccTokenResp;
+import com.lwrs.app.domain.dto.resp.WxUserInfoResp;
 import com.lwrs.app.enums.RespCode;
 import com.lwrs.app.service.remote.RequestHandler;
 import com.lwrs.app.utils.GsonHelper;

@@ -1,6 +1,6 @@
 package com.lwrs.app.controller;
 
-import com.lwrs.app.domain.dto.BaseResp;
+import com.lwrs.app.domain.dto.resp.BaseResp;
 import com.lwrs.app.enums.RespCode;
 import com.lwrs.app.service.UserService;
 import com.lwrs.app.utils.UserLoginContext;

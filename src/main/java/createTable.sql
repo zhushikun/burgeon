@@ -11,7 +11,8 @@ CREATE TABLE user(
     use_wx_avatar   TINYINT         NOT NULL DEFAULT 1      COMMENT '1 使用微信头像, 0 不用',
     `create_at`     DATETIME        NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `update_at`     timestamp       NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    PRIMARY KEY PK_USER(`id`)
+    PRIMARY KEY PK_USER(`id`),
+    UNIQUE INDEX UIDX_USER_AS (alias)
 )AUTO_INCREMENT = 101 ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT '用户';
 
 CREATE TABLE wx_oauth(
@@ -27,8 +28,8 @@ CREATE TABLE wx_oauth(
     create_at 	    DATETIME 	      NOT NULL 	DEFAULT CURRENT_TIMESTAMP,
     update_at 	    timestamp 	    NOT NULL 	DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP ,
     PRIMARY KEY PK_WXOAT(`id`),
-    INDEX UIDX_WXOAT_UI (user_id),
-    INDEX UIDX_WXOAT_OI (open_id)
+    UNIQUE INDEX UIDX_WXOAT_UI (user_id),
+    UNIQUE INDEX UIDX_WXOAT_OI (open_id)
 )AUTO_INCREMENT = 1 ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT '微信oauth表';
 
 CREATE TABLE wx_user(
@@ -46,9 +47,9 @@ CREATE TABLE wx_user(
     create_at 	    datetime 	      NOT NULL 	DEFAULT CURRENT_TIMESTAMP,
     update_at 	    timestamp 	    NOT NULL 	DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP ,
     PRIMARY KEY PK_WXUSR(`id`),
-    INDEX UIDX_WXUSR_UI (user_id),
-    INDEX UIDX_WXUSR_OI (open_id)
-)AUTO_INCREMENT = 1 ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT '微信用户信息';
+    UNIQUE INDEX UIDX_WXUSR_UI (user_id),
+    UNIQUE INDEX UIDX_WXUSR_OI (open_id)
+)AUTO_INCREMENT = 101 ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT '微信用户信息';
 
 
 CREATE TABLE file_location(
@@ -59,7 +60,7 @@ CREATE TABLE file_location(
     create_at 	datetime 	        NOT NULL 	DEFAULT CURRENT_TIMESTAMP,
     update_at 	timestamp 	      NOT NULL 	DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP ,
     PRIMARY KEY PK_FILELOC(`id`),
-    INDEX UIDX_FILELOC_UI (user_id)
+    INDEX IDX_FILELOC_UI (user_id)
 )AUTO_INCREMENT=1 ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT '文件位置';
 
 
@@ -68,7 +69,7 @@ CREATE TABLE event_book (
     shop_id 	  INT UNSIGNED	NOT NULL 					            comment '商户Id',
     user_id  	  INT UNSIGNED 	NOT NULL 					            comment '用户ID',
     user_name   VARCHAR(32)   NOT NULL                      comment '用户名',
-    gender      VARCHAR(2)    NOT NULL   DEFAULT 0          COMMENT '性别，1男性，2女性',
+    gender      VARCHAR(2)    NOT NULL   DEFAULT 0          COMMENT '性别，M男性，F女性',
     phone       VARCHAR(16)   NOT NULL                      comment '手机号',
     birth_date  DATE          NOT NULL                      comment '用户出生日期',
     book_type   VARCHAR(32)   NOT NULL                      comment '选择类型',
@@ -76,8 +77,8 @@ CREATE TABLE event_book (
     create_at 	datetime 	    NOT NULL 	DEFAULT CURRENT_TIMESTAMP,
     update_at 	timestamp 	  NOT NULL 	DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP ,
     PRIMARY KEY PK_EVENTBK (id),
-    INDEX UIDX_EVENTBK_UI (user_id),
-    INDEX UIDX_EVENTBK_SI (shop_id)
+    INDEX IDX_EVENTBK_UI (user_id),
+    INDEX IDX_EVENTBK_SI (shop_id)
 )AUTO_INCREMENT = 1,ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='活动预订';
 
 CREATE TABLE shop (
@@ -85,16 +86,28 @@ CREATE TABLE shop (
     shop_name 	varchar(32) 	NOT NULL 					            comment '商户名',
     group_id  	INT UNSIGNED 	NOT NULL 	DEFAULT 0           comment 'shopGroupId',
     address	    varchar(128)  NOT NULL 	                	  comment  '地址',
-    phone	      varchar(128)  NOT NULL 	                	  comment  '电话',
+    phone	      varchar(16)   NOT NULL 	                	  comment  '电话',
     create_at 	datetime 	    NOT NULL 	DEFAULT CURRENT_TIMESTAMP,
     update_at 	timestamp 	  NOT NULL 	DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP ,
     PRIMARY KEY PK_SHOP (id),
-    INDEX UIDX_SHOP_NAME (shop_name),
-    INDEX UIDX_SHOP_GI (group_id)
+    UNIQUE INDEX UIDX_SHOP_NAME (shop_name),
+    INDEX  IDX_SHOP_GI (group_id)
 )AUTO_INCREMENT = 101,ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='商户表';
 
 
-
+CREATE TABLE shop_owner (
+    id 			    INT UNSIGNED	NOT NULL 		AUTO_INCREMENT	  comment 'shop_owner ID' ,
+    user_id	    INT UNSIGNED	NULL 		              	      comment 'userId' ,
+    alias 	    varchar(32) 	NOT NULL 					            comment '用于登录名',
+    code        VARCHAR(32)   NOT NULL                      comment 'MD5-校验登录',
+    shops      	varchar(128) 	NOT NULL 					            comment 'own shopIds逗号隔开',
+    phone	      varchar(16)   NULL 	                	      comment  '电话',
+    create_at 	datetime 	    NOT NULL 	DEFAULT CURRENT_TIMESTAMP,
+    update_at 	timestamp 	  NOT NULL 	DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP ,
+    PRIMARY KEY PK_SHOPOWN (id),
+    UNIQUE INDEX UIDX_SHOPOWN_UI (user_id),
+    UNIQUE INDEX UIDX_SHOPOWN_as (alias)
+)AUTO_INCREMENT = 101,ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='商户老板表';
 
 
 

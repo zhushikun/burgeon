@@ -2,7 +2,7 @@ package com.lwrs.app.service;
 
 import com.lwrs.app.db.entity.EventBookDB;
 import com.lwrs.app.db.mapper.EventBookMapper;
-import com.lwrs.app.domain.dto.BaseResp;
+import com.lwrs.app.domain.dto.resp.BaseResp;
 import com.lwrs.app.domain.dto.req.BookReq;
 import com.lwrs.app.enums.Gender;
 import com.lwrs.app.enums.RespCode;
@@ -28,7 +28,7 @@ public class BookService {
             .shopId(bookReq.getShopId())
             .userId(userId)
             .userName(bookReq.getUserName())
-            .gender(Gender.valueOf(bookReq.getGender()).name())
+            .gender(bookReq.getGender())
             .phone(bookReq.getPhone())
             .birthDate(DateUtils.parseDate(DateUtils.DATE_FORMAT, bookReq.getBirthDate()))
             .bookDate(DateUtils.parseDate(DateUtils.DATE_FORMAT, bookReq.getBookDate()))

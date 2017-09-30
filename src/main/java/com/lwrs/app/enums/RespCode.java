@@ -8,6 +8,7 @@ public enum RespCode {
     INVALID_PARAM("1001", "请求不合法"),
     EXCEPTION("1002", "处理异常"),
     NOT_EXIST("1003", "请求记录不存在"),
+    CHECK_FAILED("1004", "校验错误"),
 
     ;
 
