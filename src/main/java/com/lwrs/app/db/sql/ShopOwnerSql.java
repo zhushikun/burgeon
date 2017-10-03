@@ -13,7 +13,7 @@ public class ShopOwnerSql {
         + "            <if test=\"pojo.userId != null\"> user_id, </if>"
         + "            <if test=\"pojo.alias != null\"> alias, </if>"
         + "            <if test=\"pojo.code != null\"> code, </if>"
-        + "            <if test=\"pojo.shopIds != null\"> shop_ids, </if>"
+            + "            <if test=\"pojo.shopIds != null\"> shop_ids, </if>"
         + "            <if test=\"pojo.phone != null\"> phone, </if>"
         + "            <if test=\"pojo.createAt != null\"> create_at, </if>"
         + "            <if test=\"pojo.updateAt != null\"> update_at, </if>"

@@ -1,11 +1,14 @@
 package com.lwrs.app.controller.forshop;
 
+import com.lwrs.app.domain.dto.req.BackStageLoginReq;
 import com.lwrs.app.domain.dto.resp.BaseResp;
 import com.lwrs.app.domain.dto.resp.ShopViewBookResp;
 import com.lwrs.app.service.ShopOwnerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -32,14 +35,13 @@ public class ShopBookController {
 
     /**
      * 登录验证
-     * @param alias
-     * @param code
+     * @param loginReq
      * @return
      */
-    @GetMapping("/access-check")
+    @PostMapping("ajax/access-check")
     @ResponseBody
-    public BaseResp accessCheck(@RequestParam("alias") String alias, @RequestParam("code")String code){
-        return shopOwnerService.accessCheck(alias, code);
+    public BaseResp accessCheck(@RequestBody() BackStageLoginReq loginReq){
+        return shopOwnerService.accessCheck(loginReq.getAlias(), loginReq.getCode());
     }
 
     /**

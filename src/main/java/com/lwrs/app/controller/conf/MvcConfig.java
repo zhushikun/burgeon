@@ -40,24 +40,24 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/MP_verify_NPewJUS3uKWvGcqV.txt").addResourceLocations("classpath:/static/MP_verify_NPewJUS3uKWvGcqV.txt");
         registry.addResourceHandler("/static/img/**").addResourceLocations("classpath:/static/img/");
         registry.addResourceHandler("/static/css/**").addResourceLocations("classpath:/static/css/");
         registry.addResourceHandler("/static/js/**").addResourceLocations("classpath:/static/js/");
         String pictureDir = "file:" + fileService.getPictureDir() + "/";
         registry.addResourceHandler("/picture/**").addResourceLocations(pictureDir);
     }
-
-    @Override
-    public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/login").setViewName("login");
-        registry.addViewController("/register").setViewName("register");
-    }
+//
+//    @Override
+//    public void addViewControllers(ViewControllerRegistry registry) {
+//        registry.addViewController("/login").setViewName("login");
+//        registry.addViewController("/register").setViewName("register");
+//    }
 
     @Override
     public void addInterceptors(InterceptorRegistry registry){
-        //todo reset back
 //        registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/**").excludePathPatterns("/wx/oauth");
-        registry.addInterceptor(new BackStageInterceptor()).addPathPatterns("/backstage/**").excludePathPatterns("/backstage/home", "/backstage/access-check");
+        registry.addInterceptor(new BackStageInterceptor()).addPathPatterns("/backstage/**").excludePathPatterns("/backstage/home", "/backstage/ajax/access-check");
 
     }
 }

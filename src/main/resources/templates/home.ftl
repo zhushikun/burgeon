@@ -2,10 +2,10 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>玩转spring boot——简单登录认证</title>
+    <title>spring boot学习</title>
 </head>
 <body>
-<h1>玩转spring boot——简单登录认证</h1>
+<h1>玩转spring boot</h1>
 <h4>
     aaaa
 </h4>

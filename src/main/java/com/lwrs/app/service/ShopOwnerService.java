@@ -10,6 +10,7 @@ import com.lwrs.app.db.mapper.ShopOwnerMapper;
 import com.lwrs.app.domain.dto.resp.BaseResp;
 import com.lwrs.app.domain.dto.resp.ShopViewBookResp;
 import com.lwrs.app.enums.RespCode;
+import com.lwrs.app.utils.EncodeHelper;
 import com.lwrs.app.utils.ServletHelper;
 import com.lwrs.app.utils.UserIdMask;
 import com.lwrs.app.utils.UserLoginContext;
@@ -20,7 +21,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
+import sun.security.provider.MD5;
 
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -47,8 +52,16 @@ public class ShopOwnerService {
             return BaseResp.of(RespCode.NOT_EXIST, "用户名不存在");
         }
 
-        if(!shopOwnerDB.getCode().equals(MD5Encoder.encode(code.getBytes()))){
-           return BaseResp.of(RespCode.CHECK_FAILED, "密码不正确");
+        String md5Code;
+        try {
+            md5Code = EncodeHelper.md5Encode(code);
+        }catch (Exception e){
+            log.error("exception in md5Encode", e);
+            return BaseResp.of(RespCode.EXCEPTION);
+        }
+
+        if (!shopOwnerDB.getCode().equals(md5Code)) {
+            return BaseResp.of(RespCode.CHECK_FAILED, "密码不正确");
         }
 
         ServletHelper.addCookie(Constants.SHOP_OWNER_COOKIE_NAME, UserIdMask.maskUserId(shopOwnerDB.getId()));
