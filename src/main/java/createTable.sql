@@ -8,12 +8,22 @@ CREATE TABLE user(
     `birthday`      VARCHAR(10)     NULL                    COMMENT 'yyyy-mm-dd',
     `address`       VARCHAR(64)     NULL                    COMMENT '地址',
     `avatar_id`     INT UNSIGNED    NULL                    COMMENT 'fileLocation头像ID',
-    use_wx_avatar   TINYINT         NOT NULL DEFAULT 1      COMMENT '1 使用微信头像, 0 不用',
+    use_wx_avatar   TINYINT         NOT NULL DEFAULT 0      COMMENT '1 使用微信头像, 0 不用',
     `create_at`     DATETIME        NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `update_at`     timestamp       NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY PK_USER(`id`),
     UNIQUE INDEX UIDX_USER_AS (alias)
 )AUTO_INCREMENT=101 ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT '用户';
+
+CREATE TABLE temp_user_link(
+    `id`            INT  UNSIGNED   NOT NULL AUTO_INCREMENT COMMENT 'id',
+    `user_id`       INT  UNSIGNED   NOT NULL                COMMENT 'userID',
+    `temp_uid`      VARCHAR(64)     NOT NULL                COMMENT 'uuid',
+    `create_at`     DATETIME        NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `update_at`     timestamp       NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    PRIMARY KEY PK_TUSRL(`id`),
+    UNIQUE INDEX UIDX_TUSRL_TU (temp_uid)
+)AUTO_INCREMENT=1 ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT 'uuid关联user';
 
 CREATE TABLE wx_oauth(
     `id`            INT  UNSIGNED   NOT NULL AUTO_INCREMENT COMMENT 'id',

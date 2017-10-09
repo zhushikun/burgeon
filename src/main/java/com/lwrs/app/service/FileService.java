@@ -54,9 +54,9 @@ public class FileService {
                 .location(subPath)
                 .type(fileType.name())
                 .build();
-            long fileId = fileLocationMapper.insert(fileLocationDB);
-            log.info("add fileLocation ok, id={}", fileId);
-            return fileId;
+            fileLocationMapper.insert(fileLocationDB);
+            log.info("add fileLocation ok, id={}", fileLocationDB.getId());
+            return fileLocationDB.getId();
         }catch (Exception e){
             log.error("Exception in uploadFile, userId={}", userId);
         }

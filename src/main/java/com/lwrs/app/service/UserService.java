@@ -37,15 +37,22 @@ public class UserService {
     @Autowired
     private WxOauthMapper wxOauthMapper;
 
-    @SuppressWarnings("SpringJavaAutowiringInspection")
-    @Autowired
-    private FileLocationMapper fileLocationMapper;
-
     @Autowired
     private FileService fileService;
 
     @Autowired
     private WxService wxService;
+
+    @Autowired
+    private TempUserLinkService tempUserLinkService;
+
+    public Long addNewUser(){
+        UserDB userDB = UserDB.builder()
+            .gender(Gender.X.getCode())
+            .build();
+        userMapper.insert(userDB);
+        return userDB.getId();
+    }
 
     /**
      * 修改头像
@@ -115,18 +122,20 @@ public class UserService {
         }
 
         String openId = oauthAccTokenResp.getOpenid();
-        UserDB userDB = userMapper.selectByOpenId(openId);
-        if(null != userDB){
-            return userDB.getId();
+        WxOauthDB wxOauthDB = wxOauthMapper.selectByOpenId(openId);
+        if(null != wxOauthDB){
+            return wxOauthDB.getUserId();
         }
         //没有记录
-        userDB = UserDB.builder().build();
-        Long userId = userMapper.insert(userDB);
+        Long userId = tempUserLinkService.getUserIdByUUIdCookie();
+        if(null == userId) {
+            userId = addNewUser();
+        }
 
         long current = System.currentTimeMillis();
         Date accessExpire = new Date(current + oauthAccTokenResp.getExpires_in() * 1000);
         Date refreshExpire = new Date(current + 30 * 3600 * 1000);
-        WxOauthDB wxOauthDB = WxOauthDB.builder()
+        wxOauthDB = WxOauthDB.builder()
             .userId(userId)
             .openId(openId)
             .scopeType(WxScopeType.BASE.getScope())

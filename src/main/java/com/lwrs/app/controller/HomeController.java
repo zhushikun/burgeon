@@ -15,7 +15,7 @@ public class HomeController {
     @Autowired
     private UserService userService;
 
-    @GetMapping(value = {"/index"})
+    @GetMapping(value = {"/mask-home"})
     public String index(Model model){
         return "index";
     }

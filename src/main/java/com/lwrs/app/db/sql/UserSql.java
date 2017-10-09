@@ -53,9 +53,5 @@ public class UserSql {
             + " from" + TABLE_NAME
             + " WHERE id = #{id}";
 
-    public static final String SELECT_BY_OPENID =
-        " SELECT " + COLUMNS
-            +"FROM " +  TABLE_NAME
-            +"WHERE  open_id=#{openId}";
 
 }

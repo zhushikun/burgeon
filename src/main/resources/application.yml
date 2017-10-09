@@ -4,6 +4,7 @@ server:
 
 PIC_DIR:
   /home/drjr/www/pic
+#  /root/www/pic
 
 #wx config
 #//jingjing's
@@ -23,10 +24,6 @@ lwrs:
   db:
     account:
       driverClassName: com.mysql.jdbc.Driver
-      url:
-        jdbc:mysql://localhost:3306/drmain?characterEncoding=utf-8&allowMultiQueries=true
-      userName: root
-      password: gaibang567
 #      url:
           #online
 #        jdbc:mysql://rm-wz953e5w684hq344j.mysql.rds.aliyuncs.com:3306/lwrs?characterEncoding=utf-8&allowMultiQueries=true
@@ -36,3 +33,7 @@ lwrs:
 #      password: Ecs567567
 
 #      localhost
+      url:
+        jdbc:mysql://localhost:3306/drmain?characterEncoding=utf-8&allowMultiQueries=true
+      userName: root
+      password: gaibang567

@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.lwrs.app.interceptor.BackStageInterceptor;
 import com.lwrs.app.interceptor.LoginInterceptor;
+import com.lwrs.app.interceptor.TempLoginInterceptor;
 import com.lwrs.app.service.FileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
@@ -57,6 +58,7 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
     @Override
     public void addInterceptors(InterceptorRegistry registry){
 //        registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/**").excludePathPatterns("/wx/oauth");
+        registry.addInterceptor(new TempLoginInterceptor()).addPathPatterns("/**").excludePathPatterns("/wx/oauth");
         registry.addInterceptor(new BackStageInterceptor()).addPathPatterns("/backstage/**").excludePathPatterns("/backstage/home", "/backstage/ajax/access-check");
 
     }

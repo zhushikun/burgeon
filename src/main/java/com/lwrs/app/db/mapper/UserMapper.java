@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.SelectKey;
 import org.apache.ibatis.annotations.Update;
 
 public interface UserMapper {
@@ -16,7 +17,7 @@ public interface UserMapper {
         UserSql.INSERT,
         "</script>"
     })
-    @Options(useGeneratedKeys = true)
+    @SelectKey(statement="SELECT @@IDENTITY", keyProperty="pojo.id", before=false, resultType=Long.class)
     Long insert(@Param("pojo") UserDB pojo);
 
 
@@ -26,9 +27,5 @@ public interface UserMapper {
 
     @Select(UserSql.SELECT_BY_ID)
     UserDB selectById(@Param("id") Long userId);
-
-    @Select(UserSql.SELECT_BY_OPENID)
-    UserDB selectByOpenId(@Param("openId") String openId);
-
 
 }

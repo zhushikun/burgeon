@@ -16,16 +16,10 @@ import com.lwrs.app.utils.UserIdMask;
 import com.lwrs.app.utils.UserLoginContext;
 import com.lwrs.app.utils.date.DateUtils;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.tomcat.util.security.MD5Encoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
-import sun.security.provider.MD5;
 
-import java.io.UnsupportedEncodingException;
-import java.nio.charset.Charset;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;

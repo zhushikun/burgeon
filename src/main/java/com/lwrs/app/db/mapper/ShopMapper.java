@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.SelectKey;
 import org.apache.ibatis.annotations.Update;
 
 public interface ShopMapper {
@@ -13,7 +14,7 @@ public interface ShopMapper {
         ShopSql.INSERT,
         "</script>"
     })
-    @Options(useGeneratedKeys = true)
+    @SelectKey(statement="SELECT @@IDENTITY", keyProperty="pojo.id", before=false, resultType=Long.class)
     Long insert(@Param("pojo") ShopDB pojo);
 
     @Select(ShopSql.SELECT_BY_ID)

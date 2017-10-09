@@ -7,13 +7,14 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.SelectKey;
 
 public interface FileLocationMapper {
     @Insert({"<script>",
         FileLocationSql.INSERT,
         "</script>"
     })
-    @Options(useGeneratedKeys = true)
+    @SelectKey(statement="SELECT @@IDENTITY", keyProperty="pojo.id", before=false, resultType=Long.class)
     Long insert(@Param("pojo") FileLocationDB pojo);
 
     @Select(FileLocationSql.SELECT_BY_ID)
