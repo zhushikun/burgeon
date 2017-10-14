@@ -9,9 +9,9 @@ import lombok.Setter;
 @Setter
 public class BaseResp extends BaseDto{
 
-    private String code;
+    protected String code;
 
-    private String msg;
+    protected String msg;
 
 
     public BaseResp(){

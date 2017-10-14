@@ -1,10 +1,10 @@
 server:
-  port: 8080
-#  port: 80
+#  port: 8080
+  port: 80
 
 PIC_DIR:
-  /home/drjr/www/pic
-#  /root/www/pic
+#  /home/drjr/www/pic
+  /root/www/pic
 
 #wx config
 #//jingjing's
@@ -24,16 +24,16 @@ lwrs:
   db:
     account:
       driverClassName: com.mysql.jdbc.Driver
-#      url:
+      url:
           #online
-#        jdbc:mysql://rm-wz953e5w684hq344j.mysql.rds.aliyuncs.com:3306/lwrs?characterEncoding=utf-8&allowMultiQueries=true
+        jdbc:mysql://rm-wz953e5w684hq344j.mysql.rds.aliyuncs.com:3306/lwrs?characterEncoding=utf-8&allowMultiQueries=true
           #offline
 #        jdbc:mysql://rm-wz953e5w684hq344jo.mysql.rds.aliyuncs.com:3306/lwrs?characterEncoding=utf-8&allowMultiQueries=true
-#      userName: lwrs_001
-#      password: Ecs567567
+      userName: lwrs_001
+      password: Ecs567567
 
 #      localhost
-      url:
-        jdbc:mysql://localhost:3306/drmain?characterEncoding=utf-8&allowMultiQueries=true
-      userName: root
-      password: gaibang567
+#      url:
+#        jdbc:mysql://localhost:3306/drmain?characterEncoding=utf-8&allowMultiQueries=true
+#      userName: root
+#      password: gaibang567

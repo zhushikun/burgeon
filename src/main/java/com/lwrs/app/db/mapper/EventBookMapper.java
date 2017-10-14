@@ -28,4 +28,7 @@ public interface EventBookMapper {
     @Select(EventBookSql.SELECT_BY_SHOPID)
     List<EventBookDB> selectByShopId(@Param("shopId") Long shopId);
 
+    @Select(EventBookSql.SELECT_BY_USERID)
+    List<EventBookDB> selectByUserId(@Param("userId") Long userId);
+
 }

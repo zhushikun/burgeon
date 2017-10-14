@@ -7,6 +7,7 @@ import com.lwrs.app.db.entity.ShopOwnerDB;
 import com.lwrs.app.db.mapper.EventBookMapper;
 import com.lwrs.app.db.mapper.ShopMapper;
 import com.lwrs.app.db.mapper.ShopOwnerMapper;
+import com.lwrs.app.domain.dto.UserBookInfo;
 import com.lwrs.app.domain.dto.resp.BaseResp;
 import com.lwrs.app.domain.dto.resp.ShopViewBookResp;
 import com.lwrs.app.enums.RespCode;
@@ -86,9 +87,9 @@ public class ShopOwnerService {
             //get each shop userBook detail
             List<EventBookDB> eventBookDBList = eventBookMapper.selectByShopId(shopId);
             //parse to UserBookInfo
-            List<ShopViewBookResp.UserBookInfo> userBookInfoList = eventBookDBList.stream()
+            List<UserBookInfo> userBookInfoList = eventBookDBList.stream()
                 .map(bookDB ->
-                    ShopViewBookResp.UserBookInfo.builder()
+                    UserBookInfo.builder()
                         .userName(bookDB.getUserName())
                         .gender(bookDB.getGender())
                         .phone(bookDB.getPhone())

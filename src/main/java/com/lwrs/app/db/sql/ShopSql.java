@@ -47,4 +47,12 @@ public class ShopSql {
         " SELECT " + COLUMNS
             +"FROM " +  TABLE_NAME
             +"WHERE  id=#{id}";
+
+    public static final String SELECT_BY_IDS =
+        " SELECT " + COLUMNS
+            +"FROM " +  TABLE_NAME
+            +"WHERE  id in"
+            + " <foreach collection=\"ids\" item=\"id\" open=\"(\" separator=\",\" close=\")\">"
+            + "     #{id}"
+            + " </foreach>";
 }

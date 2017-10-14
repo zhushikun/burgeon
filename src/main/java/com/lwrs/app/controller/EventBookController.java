@@ -1,9 +1,13 @@
 package com.lwrs.app.controller;
 
+import com.lwrs.app.domain.dto.UserBookInfo;
 import com.lwrs.app.domain.dto.resp.BaseResp;
 import com.lwrs.app.domain.dto.req.BookReq;
+import com.lwrs.app.domain.dto.resp.UserBookListResp;
+import com.lwrs.app.enums.RespCode;
 import com.lwrs.app.exception.InvalidParamException;
 import com.lwrs.app.service.BookService;
+import com.lwrs.app.utils.UserLoginContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.CollectionUtils;
@@ -34,6 +38,17 @@ public class EventBookController {
         return bookService.bookAccept(bookReq);
     }
 
+    @GetMapping("/ajax/book-list")
+    @ResponseBody
+    public UserBookListResp myBookList(){
+        Long userId = UserLoginContext.getUserId();
+        List<UserBookInfo> myBookList = bookService.getBookList(userId);
+        UserBookListResp resp = UserBookListResp.builder()
+            .userBookInfoList(myBookList)
+            .build();
+        resp.setRespCode(RespCode.OK);
+        return resp;
+    }
 
 
     private void handleValidResult(BindingResult bindingResult){

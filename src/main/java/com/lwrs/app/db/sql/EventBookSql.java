@@ -63,4 +63,9 @@ public class EventBookSql {
         " SELECT " + COLUMNS
             +"FROM " +  TABLE_NAME
             +"WHERE  shop_id=#{shopId}";
+
+    public static final String SELECT_BY_USERID =
+        " SELECT " + COLUMNS
+            +"FROM " +  TABLE_NAME
+            +"WHERE  user_id=#{userId}";
 }

@@ -1,5 +1,6 @@
 package com.lwrs.app.domain.dto.resp;
 
+import com.lwrs.app.domain.dto.UserBookInfo;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -24,20 +25,5 @@ public class ShopViewBookResp extends BaseResp {
     public static class OneShopBook {
         private String shopName;
         List<UserBookInfo> userBookInfoList;
-    }
-
-
-    @Builder
-    @NoArgsConstructor
-    @AllArgsConstructor
-    @Getter@Setter
-    public static class UserBookInfo{
-        private String userName;
-        private String gender;
-        private String phone;
-        private String birthDate;
-
-        private String bookType;
-        private String bookDate;
     }
 }
